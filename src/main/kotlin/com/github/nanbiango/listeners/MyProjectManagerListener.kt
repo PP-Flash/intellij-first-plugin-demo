@@ -1,9 +1,9 @@
-package com.github.nanbiango.intellijfirstplugindemo.listeners
+package com.github.nanbiango.listeners
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
-import com.github.nanbiango.intellijfirstplugindemo.services.MyProjectService
+import com.github.nanbiango.services.MyProjectService
 
 internal class MyProjectManagerListener : ProjectManagerListener {
 

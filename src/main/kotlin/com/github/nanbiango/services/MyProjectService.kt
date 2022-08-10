@@ -1,7 +1,7 @@
-package com.github.nanbiango.intellijfirstplugindemo.services
+package com.github.nanbiango.services
 
 import com.intellij.openapi.project.Project
-import com.github.nanbiango.intellijfirstplugindemo.MyBundle
+import com.github.nanbiango.MyBundle
 
 class MyProjectService(project: Project) {
 

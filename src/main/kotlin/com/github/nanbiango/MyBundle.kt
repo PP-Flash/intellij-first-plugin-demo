@@ -1,4 +1,4 @@
-package com.github.nanbiango.intellijfirstplugindemo
+package com.github.nanbiango
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
