@@ -1,25 +1,27 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.nanbiango.intellijfirstplugindemo</id>
+    <id>com.github.nanbiango</id>
     <name>Idea-First-Plugins-Demo</name>
     <vendor>nanbiango</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService
-                serviceImplementation="com.github.nanbiango.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.nanbiango.services.MyProjectService"/>
+<!--        <applicationService-->
+<!--                serviceImplementation="com.github.nanbiango.services.MyApplicationService"/>-->
+<!--        <projectService serviceImplementation="com.github.nanbiango.services.MyProjectService"/>-->
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.nanbiango.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+<!--    <applicationListeners>-->
+<!--        <listener class="com.github.nanbiango.listeners.MyProjectManagerListener"-->
+<!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
+<!--    </applicationListeners>-->
     <actions>
-        <action id="MyFirstPlugin.Menu" class="com.github.nanbiango.as.MyFirstPlugin"
-                text="MyFirstPlugin" description="第一个插件">
+        <group id="ChengLongPlugins.Group" text="成龙工具箱" description="成龙的小工具箱">
             <add-to-group group-id="MainMenu" anchor="last"/>
-        </action>
+            <action id="YamlHandle.Menu" class="com.github.nanbiango.actions.YamlHandlePlugin"
+                    text="Yaml文件处理" description="Yaml文件的处理">
+            </action>
+        </group>
     </actions>
 </idea-plugin>

@@ -19,6 +19,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("org.yaml:snakeyaml:1.30")
+}
+
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
     pluginName.set(properties("pluginName"))
@@ -45,14 +49,6 @@ tasks {
         gradleVersion = properties("gradleVersion")
     }
 
-    // Configure UI tests plugin
-    // Read more: https://github.com/JetBrains/intellij-ui-test-robot
-    runIdeForUiTests {
-        systemProperty("robot-server.port", "8082")
-        systemProperty("ide.mac.message.dialogs.as.sheets", "false")
-        systemProperty("jb.privacy.policy.text", "<!--999.999-->")
-        systemProperty("jb.consents.confirmation.enabled", "false")
-    }
 
 //    signPlugin {
 //        certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))

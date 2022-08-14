@@ -1,1 +1,1 @@
-rootProject.name = "intellij-first-plugin-demo"
+rootProject.name = "chenglong-tools-plugin"
