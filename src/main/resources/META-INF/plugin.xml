@@ -7,15 +7,15 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-<!--        <applicationService-->
-<!--                serviceImplementation="com.github.nanbiango.services.MyApplicationService"/>-->
-<!--        <projectService serviceImplementation="com.github.nanbiango.services.MyProjectService"/>-->
+        <!--        <applicationService-->
+        <!--                serviceImplementation="com.github.nanbiango.services.MyApplicationService"/>-->
+        <!--        <projectService serviceImplementation="com.github.nanbiango.services.MyProjectService"/>-->
     </extensions>
 
-<!--    <applicationListeners>-->
-<!--        <listener class="com.github.nanbiango.listeners.MyProjectManagerListener"-->
-<!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
-<!--    </applicationListeners>-->
+    <!--    <applicationListeners>-->
+    <!--        <listener class="com.github.nanbiango.listeners.MyProjectManagerListener"-->
+    <!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
+    <!--    </applicationListeners>-->
     <actions>
         <group id="ChengLongPlugins.Group" text="成龙工具箱" description="成龙的小工具箱">
             <add-to-group group-id="MainMenu" anchor="last"/>
