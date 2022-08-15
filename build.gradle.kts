@@ -21,6 +21,7 @@ repositories {
 
 dependencies {
     implementation("org.yaml:snakeyaml:1.30")
+    implementation("com.alibaba:fastjson:2.0.11")
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
@@ -47,6 +48,11 @@ tasks {
 
     wrapper {
         gradleVersion = properties("gradleVersion")
+    }
+
+    patchPluginXml {
+        sinceBuild.set(properties("pluginSinceBuild"))
+        untilBuild.set(properties("pluginUntilBuild"))
     }
 
 

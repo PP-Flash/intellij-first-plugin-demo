@@ -1,15 +1,10 @@
-package com.github.nanbiango.component
+package com.github.nanbiango.views
 
+import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.utils.Utils
 import com.intellij.openapi.ui.DialogWrapper
-import com.intellij.openapi.ui.Messages
-import com.intellij.ui.EditorTextField
-import com.intellij.ui.components.JBPanel
 import org.apache.commons.lang3.StringUtils
 import org.yaml.snakeyaml.Yaml
-import java.awt.FlowLayout
-import java.awt.GridBagLayout
-import java.awt.Insets
 import javax.swing.*
 
 /**
@@ -17,7 +12,7 @@ import javax.swing.*
  */
 class YamlFormatView : DialogWrapper(true) {
 
-    private val etf: YamlEditTextField = YamlEditTextField()
+    private val etf: EditTextFieldPlus = EditTextFieldPlus()
     private val checkFileBtn: JButton = JButton("检查格式")
     private val topBox: Box = Box.createHorizontalBox()
     private val bottomBox: Box = Box.createHorizontalBox()
@@ -33,10 +28,23 @@ class YamlFormatView : DialogWrapper(true) {
         this.initAttribute()
     }
 
+    /**
+     * 隐藏默认OK和Cancel按钮
+     */
+    override fun createActions(): Array<Action> {
+        return emptyArray()
+    }
+
+    /**
+     * 创建Dialog的内容部分
+     */
+    override fun createCenterPanel(): JComponent {
+        return rootBox
+    }
+
     private fun initAttribute() {
         //创建编辑器
-        etf.setOneLineMode(false)
-
+        etf.placeholder = "请输入需要校验的Yaml格式文件..."
         //检索按钮监听点击事件
         checkFileBtn.addActionListener {
             val yamlText = etf.text
@@ -59,20 +67,4 @@ class YamlFormatView : DialogWrapper(true) {
         rootBox.add(topBox)
         rootBox.add(bottomBox)
     }
-
-    /**
-     * 隐藏默认OK和Cancel按钮
-     */
-    override fun createActions(): Array<Action> {
-        return emptyArray()
-    }
-
-    /**
-     * 创建Dialog的内容部分
-     */
-    override fun createCenterPanel(): JComponent {
-        return rootBox
-    }
-
-
 }

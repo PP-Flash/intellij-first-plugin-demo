@@ -4,12 +4,16 @@ import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.ui.EditorTextField
 
 /**
- * ...
+ * EditorTextField的扩展
  */
-class YamlEditTextField : EditorTextField() {
-    companion object {
-        private const val serialVersionUID: Long = -7195533177145313020L
-    }
+open class EditTextFieldPlus : EditorTextField() {
+
+    private val serialVersionUID: Long = -7437595304971227487L
+
+    /**
+     * 占位符内容
+     */
+    var placeholder: String = ""
 
     /**
      * 重写并增加滚动条
@@ -18,10 +22,8 @@ class YamlEditTextField : EditorTextField() {
         val ce = super.createEditor()
         ce.setHorizontalScrollbarVisible(true)
         ce.setVerticalScrollbarVisible(true)
-        ce.setPlaceholder("请输入需要校验的Yaml格式文件...")
+        ce.setPlaceholder(placeholder)
         ce.isOneLineMode = false
         return ce
     }
-
-
 }

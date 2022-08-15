@@ -7,8 +7,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 /**
  * ...
  */
-class YamlHandlePlugin : AnAction() {
+class JsonHandlePlugin : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-        YamlFormatView().show()
+        JsonFormatView().show()
     }
 }

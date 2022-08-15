@@ -1,8 +1,8 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.nanbiango</id>
-    <name>Idea-First-Plugins-Demo</name>
-    <vendor>nanbiango</vendor>
+    <name>Chenglong-Tools</name>
+    <vendor>wangchenglong</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -21,6 +21,9 @@
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="YamlHandle.Menu" class="com.github.nanbiango.actions.YamlHandlePlugin"
                     text="Yaml文件处理" description="Yaml文件的处理">
+            </action>
+            <action id="JsonHandle.Menu" class="com.github.nanbiango.actions.JsonHandlePlugin"
+                    text="Json文件处理" description="Json文件的处理">
             </action>
         </group>
     </actions>
