@@ -63,9 +63,24 @@ class JsonFormatView : DialogWrapper(true) {
                 Utils.showErrorMessage(e.message ?: "格式校验异常")
             }
         }
+        //格式化内容点击事件
+        formatBtn.addActionListener {
+            val jsonText = etf.text
+            if (StringUtils.isEmpty(jsonText)) {
+                Utils.showMessage("内容不能为空")
+                return@addActionListener
+            }
+            try {
+                etf.text = JSON.toJSONString(JSON.parseObject(jsonText), true)
+            } catch (e: Exception) {
+                Utils.showErrorMessage(e.message ?: "格式异常，格式化失败")
+            }
+        }
+
         //装填文本框和底部按钮
         topBox.add(etf)
         bottomBox.add(checkFileBtn)
+        bottomBox.add(formatBtn)
         //追加到根Box
         rootBox.add(topBox)
         rootBox.add(bottomBox)
