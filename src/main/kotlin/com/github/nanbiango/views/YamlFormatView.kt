@@ -44,7 +44,7 @@ class YamlFormatView : DialogWrapper(true) {
 
     private fun initAttribute() {
         //创建编辑器
-        etf.placeholder = "请输入需要校验的Yaml格式文件..."
+        etf.placeholder = "请输入需要校验的Yaml格式内容..."
         //检索按钮监听点击事件
         checkFileBtn.addActionListener {
             val yamlText = etf.text

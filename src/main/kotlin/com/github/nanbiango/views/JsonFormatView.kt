@@ -1,6 +1,7 @@
 package com.github.nanbiango.views
 
 import com.alibaba.fastjson.JSON
+import com.alibaba.fastjson.JSONObject
 import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.utils.Utils
 import com.intellij.openapi.ui.DialogWrapper
@@ -48,7 +49,7 @@ class JsonFormatView : DialogWrapper(true) {
 
     private fun initAttribute() {
         //创建编辑器
-        etf.placeholder = "请输入需要校验的Yaml格式文件..."
+        etf.placeholder = "请输入Json格式内容..."
         //检索按钮监听点击事件
         checkFileBtn.addActionListener {
             val jsonText = etf.text
@@ -57,7 +58,7 @@ class JsonFormatView : DialogWrapper(true) {
                 return@addActionListener
             }
             try {
-                JSON.parseObject(jsonText)
+                JSONObject.parseObject(jsonText)
                 Utils.showMessage("格式校验通过")
             } catch (e: Exception) {
                 Utils.showErrorMessage(e.message ?: "格式校验异常")
