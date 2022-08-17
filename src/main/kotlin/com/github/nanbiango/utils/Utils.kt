@@ -40,6 +40,19 @@ object Utils {
         return null
     }
 
+    fun httpFromPost(url: String, body: String): String? {
+        val request = Request.Builder()
+            .url(url)
+            .post(body.toRequestBody("application/x-www-form-urlencoded".toMediaType()))
+            .build()
+        val respCall = okHttpClient.newCall(request).execute()
+
+        if (respCall.code == 200) {
+            return respCall.body?.string()
+        }
+        return null
+    }
+
     /**
      * 发送http请求
      */
