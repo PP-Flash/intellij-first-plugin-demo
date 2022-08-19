@@ -6,5 +6,7 @@ import com.github.nanbiango.services.NacosSyncDevService
  * ...
  */
 fun main() {
-    NacosSyncDevService.login()
+//    NacosSyncDevService.login()
+
+    NacosSyncDevService.getConfig("mps-order-joom-service.yml", "dev_mps_group")
 }

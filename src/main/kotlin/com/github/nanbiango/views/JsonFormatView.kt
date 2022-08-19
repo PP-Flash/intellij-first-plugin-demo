@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONObject
 import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.utils.Utils
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.ui.DialogWrapper
 import org.apache.commons.lang3.StringUtils
 import javax.swing.Action
@@ -74,6 +75,7 @@ class JsonFormatView : DialogWrapper(true) {
             try {
                 etf.text = JSON.toJSONString(JSON.parseObject(jsonText), true)
             } catch (e: Exception) {
+                thisLogger().error("Json处理异常", e)
                 Utils.showErrorMessage(e.message ?: "格式异常，格式化失败")
             }
         }

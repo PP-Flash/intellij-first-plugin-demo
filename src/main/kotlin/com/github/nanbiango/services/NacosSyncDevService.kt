@@ -13,20 +13,26 @@ object NacosSyncDevService {
     /**
      * 发布配置
      */
-    fun publishConfig(content: String, dataId: String, group: String) {
+    fun publishConfig(content: String, dataId: String, group: String, namespaceId: String = "public", type: String = "yaml") {
         val accessToken = login()
         //发布配置
-        val result = Utils.httpPost("$SERVICE_URL/nacos/v1/cs/configs", "accessToken=${accessToken}&content=${content}&dataId=${dataId}&group=${group}")
-
+        val result = Utils.httpPost(
+            "$SERVICE_URL/nacos/v1/cs/configs",
+            "accessToken=${accessToken}&content=${content}&dataId=${dataId}&group=${group}&tenant=${namespaceId}&type=${type}"
+        )
         println("发布配置结果：${result}")
     }
 
-    fun queryConfig(dataId: String, group: String) {
+    /**
+     * 获取配置
+     */
+    fun getConfig(dataId: String, group: String, namespaceId: String = "public") {
         val accessToken = login()
         //查询配置
-        val result = Utils.httpGet("$SERVICE_URL/nacos/v1/cs/configs?accessToken=${accessToken}&dataId=${dataId}&group=${group}")
+        val result =
+            Utils.httpGet("$SERVICE_URL/nacos/v1/cs/configs?accessToken=${accessToken}&dataId=${dataId}&group=${group}&tenant=${namespaceId}")
 
-        println("当前配置：${result}")
+        println("查询的配置：${result}")
     }
 
     /**
