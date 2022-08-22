@@ -17,13 +17,16 @@
     <!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
     <!--    </applicationListeners>-->
     <actions>
-        <group id="ChengLongPlugins.Group" text="成龙工具箱" description="成龙的小工具箱">
+        <group id="ChengLongPlugins.Group" text="成龙工具箱" description="成龙工具箱">
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="YamlHandle.Menu" class="com.github.nanbiango.actions.YamlHandlePlugin"
                     text="Yaml文件处理" description="Yaml文件的处理">
             </action>
             <action id="JsonHandle.Menu" class="com.github.nanbiango.actions.JsonHandlePlugin"
                     text="Json文件处理" description="Json文件的处理">
+            </action>
+            <action id="NacosHandle.Menu" class="com.github.nanbiango.actions.NacosHandlePlugin"
+                    text="Nacos配置同步" description="Nacos配置同步">
             </action>
         </group>
     </actions>

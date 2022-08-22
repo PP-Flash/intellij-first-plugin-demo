@@ -1,5 +1,8 @@
 package com.github.nanbiango.utils
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.ui.Messages
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,6 +20,7 @@ object Utils {
         .callTimeout(Duration.ofSeconds(10))
         .build()
 
+    public val gson = GsonBuilder().setPrettyPrinting().create()
 
     //普通消息
     fun showMessage(message: String) = Messages.showInfoMessage(message, "提示")
@@ -45,12 +49,14 @@ object Utils {
             .url(url)
             .post(body.toRequestBody("application/x-www-form-urlencoded".toMediaType()))
             .build()
-        val respCall = okHttpClient.newCall(request).execute()
-
-        if (respCall.code == 200) {
-            return respCall.body?.string()
+        okHttpClient.newCall(request).execute().use {
+            if (it.code == 200) {
+                val respBody = it.body?.string()
+                println("Nacos返回：$respBody")
+                return respBody
+            }
+            return null
         }
-        return null
     }
 
     /**

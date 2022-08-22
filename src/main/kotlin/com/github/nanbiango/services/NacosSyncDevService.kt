@@ -1,7 +1,7 @@
 package com.github.nanbiango.services
 
-import com.alibaba.fastjson.JSON
 import com.github.nanbiango.utils.Utils
+import com.google.gson.JsonParser
 
 /**
  * 针对Nacos的信息同步服务
@@ -13,14 +13,14 @@ object NacosSyncDevService {
     /**
      * 发布配置
      */
-    fun publishConfig(content: String, dataId: String, group: String, namespaceId: String = "public", type: String = "yaml") {
+    fun publishConfig(content: String, dataId: String, group: String = "DEFAULT_GROUP", namespaceId: String = "", type: String = "yaml") {
         val accessToken = login()
         //发布配置
-        val result = Utils.httpPost(
+        val result = Utils.httpFromPost(
             "$SERVICE_URL/nacos/v1/cs/configs",
             "accessToken=${accessToken}&content=${content}&dataId=${dataId}&group=${group}&tenant=${namespaceId}&type=${type}"
         )
-        println("发布配置结果：${result}")
+        println("发布配置结果：$result")
     }
 
     /**
@@ -42,6 +42,6 @@ object NacosSyncDevService {
      */
     private fun login(): String {
         val result = Utils.httpFromPost("$SERVICE_URL/nacos/v1/auth/login", "username=mdc&password=mdc123456")
-        return JSON.parseObject(result).getString("accessToken")
+        return JsonParser.parseString(result).asJsonObject.get("accessToken").asString
     }
 }

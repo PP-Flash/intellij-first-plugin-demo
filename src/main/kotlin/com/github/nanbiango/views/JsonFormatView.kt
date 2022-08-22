@@ -1,9 +1,8 @@
 package com.github.nanbiango.views
 
-import com.alibaba.fastjson.JSON
-import com.alibaba.fastjson.JSONObject
 import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.utils.Utils
+import com.google.gson.JsonParser
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.ui.DialogWrapper
 import org.apache.commons.lang3.StringUtils
@@ -59,7 +58,7 @@ class JsonFormatView : DialogWrapper(true) {
                 return@addActionListener
             }
             try {
-                JSONObject.parseObject(jsonText)
+                JsonParser.parseString(jsonText)
                 Utils.showMessage("格式校验通过")
             } catch (e: Exception) {
                 Utils.showErrorMessage(e.message ?: "格式校验异常")
@@ -73,7 +72,7 @@ class JsonFormatView : DialogWrapper(true) {
                 return@addActionListener
             }
             try {
-                etf.text = JSON.toJSONString(JSON.parseObject(jsonText), true)
+                etf.text = Utils.gson.toJson(JsonParser.parseString(jsonText))
             } catch (e: Exception) {
                 thisLogger().error("Json处理异常", e)
                 Utils.showErrorMessage(e.message ?: "格式异常，格式化失败")
