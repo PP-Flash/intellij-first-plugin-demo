@@ -1,20 +1,29 @@
 package com.github.nanbiango.views
 
-import com.intellij.ide.util.RunOnceUtil
+import com.github.nanbiango.component.EditTextFieldPlus
+import com.github.nanbiango.services.NacosSyncDevService
+import com.github.nanbiango.utils.Utils
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.ui.DialogWrapper
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.apache.commons.io.FileUtils
+import org.apache.commons.lang3.StringUtils
+import org.jetbrains.concurrency.runAsync
+import org.yaml.snakeyaml.Yaml
+import java.io.File
 import java.nio.file.Files
-import java.nio.file.Paths
 import javax.swing.Box
 import javax.swing.JButton
 import javax.swing.JComponent
-import kotlin.io.path.name
 
 /**
  * Nacos同步配置视图
  */
 class NacosSyncView(val project: Project) : DialogWrapper(true) {
+    private val etf: EditTextFieldPlus = EditTextFieldPlus()
     private val topBox: Box = Box.createHorizontalBox()
     private val bottomBox: Box = Box.createHorizontalBox()
     private val rootBox: Box = Box.createVerticalBox()
@@ -25,19 +34,45 @@ class NacosSyncView(val project: Project) : DialogWrapper(true) {
         super.setResizable(false)
         title = "Nacos配置管理"
         setSize(500, 600)
-
-
+        //初始化组件
+        this.initComponent()
+        //文件内容读取
+        runBlocking { readConfigFile() }
     }
 
-    fun readConfigFile() {
-        //异步文件扫描
-        val configOptional = Files.list(Paths.get(project.basePath!!, "src/main/resources"))
-            .filter { it.name == "bootstrap-loc.yml" }
-            .findFirst()
-        //存在文件则读取
-        if (configOptional.isPresent) {
-            val fileText = Files.newBufferedReader(configOptional.get()).readText()
-            println(fileText)
+    private fun syncConfigToDev() {
+        val yamlText = etf.text
+        if (StringUtils.isEmpty(yamlText)) {
+            Utils.showMessage("配置内容不能为空")
+            return
+        }
+        try {
+            //校验并加载yaml配置
+            val yamlConfig = Yaml().load<String>(yamlText)
+            NacosSyncDevService.publishConfig(yamlConfig!!, "", "", "")
+        } catch (e: Exception) {
+            Utils.showErrorMessage(e.message ?: "格式校验异常")
+        }
+    }
+
+    private fun initComponent() {
+        topBox.add(etf)
+
+        bottomBox.add(syncConfigBtn)
+
+        rootBox.add(topBox)
+        rootBox.add(bottomBox)
+    }
+
+    private suspend fun readConfigFile() = coroutineScope {
+        launch {
+            //异步文件扫描
+            val configFile = FileUtils.listFiles(File(project.basePath!!), arrayOf("yml", "yaml"), true)
+                .firstOrNull { it.name.contains("bootstrap-loc") }
+            //存在文件则读取
+            if (configFile?.exists() == true) {
+                etf.text = Files.newBufferedReader(configFile.toPath()).readText()
+            }
         }
     }
 
@@ -45,7 +80,6 @@ class NacosSyncView(val project: Project) : DialogWrapper(true) {
      * 创建可视化界面
      */
     override fun createCenterPanel(): JComponent {
-        println(ProjectManager.getInstance().defaultProject)
         return rootBox
     }
 
