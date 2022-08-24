@@ -7,7 +7,7 @@ import javax.swing.JButton
 /**
  * 时间戳的统一转换
  */
-class TimeUnixFormatView : RootView("时间戳转换") {
+class TimeUnixFormatView() : RootView("时间戳转换") {
 
     //文本输入框
     private val inputEdit: EditTextFieldPlus = EditTextFieldPlus(true)
