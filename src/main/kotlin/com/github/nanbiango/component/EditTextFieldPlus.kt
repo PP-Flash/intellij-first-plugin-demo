@@ -6,7 +6,7 @@ import com.intellij.ui.EditorTextField
 /**
  * EditorTextField的扩展
  */
-open class EditTextFieldPlus : EditorTextField() {
+open class EditTextFieldPlus(val oneLine: Boolean = false) : EditorTextField() {
 
     private val serialVersionUID: Long = -7437595304971227487L
 
@@ -23,7 +23,7 @@ open class EditTextFieldPlus : EditorTextField() {
         ce.setHorizontalScrollbarVisible(true)
         ce.setVerticalScrollbarVisible(true)
         ce.setPlaceholder(placeholder)
-        ce.isOneLineMode = false
+        ce.isOneLineMode = oneLine
         return ce
     }
 }

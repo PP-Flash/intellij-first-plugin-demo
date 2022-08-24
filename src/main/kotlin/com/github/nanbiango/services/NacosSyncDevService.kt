@@ -13,7 +13,13 @@ object NacosSyncDevService {
     /**
      * 发布配置
      */
-    fun publishConfig(content: String, dataId: String, group: String = "DEFAULT_GROUP", namespaceId: String = "", type: String = "yaml") {
+    fun publishConfig(
+        content: String,
+        dataId: String,
+        group: String = "DEFAULT_GROUP",
+        namespaceId: String = "",
+        type: String = "yaml"
+    ) {
         val accessToken = login()
         //发布配置
         val result = Utils.httpFromPost(

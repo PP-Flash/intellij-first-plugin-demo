@@ -4,17 +4,16 @@ import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.services.NacosSyncDevService
 import com.github.nanbiango.utils.Utils
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.ui.DialogWrapper
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.apache.commons.io.FileUtils
 import org.apache.commons.lang3.StringUtils
-import org.jetbrains.concurrency.runAsync
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 import java.nio.file.Files
+import javax.swing.Action
 import javax.swing.Box
 import javax.swing.JButton
 import javax.swing.JComponent
@@ -83,4 +82,10 @@ class NacosSyncView(val project: Project) : DialogWrapper(true) {
         return rootBox
     }
 
+    /**
+     * 隐藏默认OK和Cancel按钮
+     */
+    override fun createActions(): Array<Action> {
+        return emptyArray()
+    }
 }
