@@ -3,6 +3,7 @@ package com.github.nanbiango.views
 import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.services.NacosSyncDevService
 import com.github.nanbiango.utils.Utils
+import com.github.nanbiango.views.base.RootView
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import kotlinx.coroutines.coroutineScope
@@ -21,18 +22,13 @@ import javax.swing.JComponent
 /**
  * Nacos同步配置视图
  */
-class NacosSyncView(val project: Project) : DialogWrapper(true) {
+class NacosSyncView(val project: Project) : RootView("Nacos配置管理", 500) {
     private val etf: EditTextFieldPlus = EditTextFieldPlus()
     private val topBox: Box = Box.createHorizontalBox()
     private val bottomBox: Box = Box.createHorizontalBox()
-    private val rootBox: Box = Box.createVerticalBox()
     private val syncConfigBtn: JButton = JButton("同步配置到Dev")
 
     init {
-        super.init()
-        super.setResizable(false)
-        title = "Nacos配置管理"
-        setSize(500, 600)
         //初始化组件
         this.initComponent()
         //文件内容读取
@@ -73,19 +69,5 @@ class NacosSyncView(val project: Project) : DialogWrapper(true) {
                 etf.text = Files.newBufferedReader(configFile.toPath()).readText()
             }
         }
-    }
-
-    /**
-     * 创建可视化界面
-     */
-    override fun createCenterPanel(): JComponent {
-        return rootBox
-    }
-
-    /**
-     * 隐藏默认OK和Cancel按钮
-     */
-    override fun createActions(): Array<Action> {
-        return emptyArray()
     }
 }

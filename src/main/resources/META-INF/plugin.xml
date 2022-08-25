@@ -28,6 +28,9 @@
             <action id="NacosHandle.Menu" class="com.github.nanbiango.actions.NacosHandlePlugin"
                     text="Nacos配置同步" description="Nacos配置同步">
             </action>
+            <action id="TimeUnixFormat.Menu" class="com.github.nanbiango.actions.TimeUnixHandlePlugin"
+                    text="TimeUnix时间戳" description="TimeUnix时间戳">
+            </action>
         </group>
     </actions>
 </idea-plugin>

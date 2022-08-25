@@ -2,52 +2,30 @@ package com.github.nanbiango.views
 
 import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.utils.Utils
+import com.github.nanbiango.views.base.RootView
 import com.google.gson.JsonParser
 import com.intellij.openapi.diagnostic.thisLogger
-import com.intellij.openapi.ui.DialogWrapper
 import org.apache.commons.lang3.StringUtils
-import javax.swing.Action
 import javax.swing.Box
 import javax.swing.JButton
-import javax.swing.JComponent
 
 /**
  * JSON数据的处理
  */
-class JsonFormatView : DialogWrapper(true) {
+class JsonFormatView : RootView("Json文件处理") {
 
     private val etf: EditTextFieldPlus = EditTextFieldPlus()
     private val checkFileBtn: JButton = JButton("检查格式")
     private val formatBtn: JButton = JButton("格式化")
     private val topBox: Box = Box.createHorizontalBox()
     private val bottomBox: Box = Box.createHorizontalBox()
-    private val rootBox: Box = Box.createVerticalBox()
 
     init {
-        super.init()
-        title = "Json文件处理"
-        setSize(400, 600)
-        setResizable(false)
-
         //属性初始化
-        this.initAttribute()
+        this.initComponent()
     }
 
-    /**
-     * 创建Dialog的内容部分
-     */
-    override fun createCenterPanel(): JComponent? {
-        return rootBox
-    }
-
-    /**
-     * 隐藏默认OK和Cancel按钮
-     */
-    override fun createActions(): Array<Action> {
-        return emptyArray()
-    }
-
-    private fun initAttribute() {
+    private fun initComponent() {
         //创建编辑器
         etf.placeholder = "请输入Json格式内容..."
         //检索按钮监听点击事件

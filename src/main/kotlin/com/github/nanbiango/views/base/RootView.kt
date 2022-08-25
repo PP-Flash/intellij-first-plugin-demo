@@ -1,4 +1,4 @@
-package com.github.nanbiango.views
+package com.github.nanbiango.views.base
 
 import com.intellij.openapi.ui.DialogWrapper
 import javax.swing.Action
