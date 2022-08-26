@@ -91,7 +91,7 @@ class TimeUnixFormatView : RootView("时间戳转换", 600, 300) {
         try {
             val inputText = inputEdit.text
             //判断输入文本是否纯数字时间戳
-            if ("//d+".regularMatch(inputText)) {
+            if ("\\d+".regularMatch(inputText)) {
                 timeTextFieldL1.text = "时间"
                 val timestampText = inputText.toLong()
                 //时间戳，10位是秒时间戳，13位是毫秒时间戳
