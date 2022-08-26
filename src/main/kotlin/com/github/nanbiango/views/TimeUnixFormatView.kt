@@ -4,12 +4,11 @@ import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.utils.Utils
 import com.github.nanbiango.utils.regularMatch
 import com.github.nanbiango.views.base.RootView
-import com.intellij.ui.components.JBTextField
+import com.intellij.ui.components.JBLabel
 import java.awt.event.ActionListener
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import javax.swing.Box
 import javax.swing.JButton
@@ -17,12 +16,12 @@ import javax.swing.JButton
 /**
  * 时间戳的统一转换
  */
-class TimeUnixFormatView : RootView("时间戳转换", 600, 300) {
+class TimeUnixFormatView : RootView("时间戳转换", 600, 100) {
 
     private val timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-    private val inputTextField: JBTextField = JBTextField("输入时间或时间戳：")
-    private val timeTextFieldL1: JBTextField = JBTextField()
-    private val timeTextFieldR1: JBTextField = JBTextField()
+    private val inputLabel: JBLabel = JBLabel("输入时间或时间戳：")
+    private val timeLabelL1: JBLabel = JBLabel()
+    private val timeLabelR1: JBLabel = JBLabel()
     private val transferTimeBtn: JButton = JButton("格式转换")
 
     //文本输入框
@@ -52,15 +51,16 @@ class TimeUnixFormatView : RootView("时间戳转换", 600, 300) {
         transferTimeBtn.addActionListener(this.transferTimeBtnAction())
 
         //顶部布局
-        topBox.add(inputTextField)
+        topBox.add(inputLabel)
         topBox.add(inputEdit)
         topBox.add(transferTimeBtn)
 
         //展示时间第一行
-        b1Box.add(timeTextFieldL1)
+        b1Box.add(timeLabelL1)
         b1Box.add(timeTextEditL1)
-        b1Box.add(timeTextFieldR1)
+        b1Box.add(timeLabelR1)
         b1Box.add(timestampTextEditR1)
+
 //        //展示时间第二行
 //        b2Box.add(timeTextField)
 //        b2Box.add(textEditLeft2)
@@ -92,22 +92,22 @@ class TimeUnixFormatView : RootView("时间戳转换", 600, 300) {
             val inputText = inputEdit.text
             //判断输入文本是否纯数字时间戳
             if ("\\d+".regularMatch(inputText)) {
-                timeTextFieldL1.text = "时间"
+                timeLabelL1.text = "时间"
                 val timestampText = inputText.toLong()
-                //时间戳，10位是秒时间戳，13位是毫秒时间戳
+                //时间戳
                 if (inputText.length > 10) {
-                    timeTextFieldR1.text = "时间戳(秒)"
+                    timeLabelR1.text = "时间戳(秒)"
                     timestampTextEditR1.text = Instant.ofEpochMilli(timestampText).epochSecond.toString()
                 } else {
-                    timeTextFieldR1.text = "时间戳(毫秒)"
+                    timeLabelR1.text = "时间戳(毫秒)"
                     timestampTextEditR1.text = Instant.ofEpochMilli(timestampText).toEpochMilli().toString()
                 }
                 timeTextEditL1.text = Instant.ofEpochMilli(timestampText)
                     .atZone(ZoneId.systemDefault())
                     .format(DateTimeFormatter.ISO_DATE_TIME)
             } else {
-                timeTextFieldL1.text = "时间戳(秒)"
-                timeTextFieldR1.text = "时间戳(毫秒)"
+                timeLabelL1.text = "时间戳(秒)"
+                timeLabelR1.text = "时间戳(毫秒)"
                 val dateTime = LocalDateTime.parse(inputText, timeFormatter).atZone(ZoneId.systemDefault())
                 timeTextEditL1.text = dateTime.toInstant().epochSecond.toString()
                 timestampTextEditR1.text = dateTime.toInstant().toEpochMilli().toString()
