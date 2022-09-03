@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.nanbiango</id>
-    <name>Chenglong-Tools</name>
+    <name>ChengLong-Tools</name>
     <vendor>wangchenglong</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -24,9 +24,6 @@
             </action>
             <action id="JsonHandle.Menu" class="com.github.nanbiango.actions.JsonHandlePlugin"
                     text="Json文件处理" description="Json文件的处理">
-            </action>
-            <action id="NacosHandle.Menu" class="com.github.nanbiango.actions.NacosHandlePlugin"
-                    text="Nacos配置同步" description="Nacos配置同步">
             </action>
             <action id="TimestampUnixView.Menu" class="com.github.nanbiango.actions.TimestampHandlePlugin"
                     text="时间戳Unix工具" description="时间戳Unix工具">
