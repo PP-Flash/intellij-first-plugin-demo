@@ -12,6 +12,8 @@ import javax.swing.*
 
 /**
  * 时间戳视图
+ * 注意：如果采用类似 CustomRootView 类继承方式，form文件中的组件暂时无法完成初始化
+ * 所以直接使用 DialogWrapper 类来编写
  *
  * @author wangchenglong
  * @since 2022-09-03
