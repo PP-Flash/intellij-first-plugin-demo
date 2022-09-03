@@ -3,9 +3,8 @@ package com.github.nanbiango.views
 import com.github.nanbiango.component.EditTextFieldPlus
 import com.github.nanbiango.services.NacosSyncDevService
 import com.github.nanbiango.utils.Utils
-import com.github.nanbiango.views.base.RootView
+import com.github.nanbiango.views.base.CustomRootView
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.DialogWrapper
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -14,15 +13,13 @@ import org.apache.commons.lang3.StringUtils
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 import java.nio.file.Files
-import javax.swing.Action
 import javax.swing.Box
 import javax.swing.JButton
-import javax.swing.JComponent
 
 /**
  * Nacos同步配置视图
  */
-class NacosSyncView(val project: Project) : RootView("Nacos配置管理", 500) {
+class NacosSyncViewCustom(val project: Project) : CustomRootView("Nacos配置管理", 500) {
     private val etf: EditTextFieldPlus = EditTextFieldPlus()
     private val topBox: Box = Box.createHorizontalBox()
     private val bottomBox: Box = Box.createHorizontalBox()

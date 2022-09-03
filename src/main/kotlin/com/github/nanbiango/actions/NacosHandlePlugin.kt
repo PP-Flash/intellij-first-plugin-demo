@@ -1,6 +1,6 @@
 package com.github.nanbiango.actions
 
-import com.github.nanbiango.views.NacosSyncView
+import com.github.nanbiango.views.NacosSyncViewCustom
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 
@@ -9,6 +9,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
  */
 class NacosHandlePlugin : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-        NacosSyncView(e.project!!).show()
+        NacosSyncViewCustom(e.project!!).show()
     }
 }

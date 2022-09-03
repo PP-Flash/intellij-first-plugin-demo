@@ -1,6 +1,6 @@
 package com.github.nanbiango.actions
 
-import com.github.nanbiango.views.YamlFormatView
+import com.github.nanbiango.views.YamlFormatViewCustom
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 
@@ -9,6 +9,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
  */
 class YamlHandlePlugin : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-        YamlFormatView().show()
+        YamlFormatViewCustom().show()
     }
 }

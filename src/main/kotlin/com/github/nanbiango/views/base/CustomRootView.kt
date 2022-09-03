@@ -5,7 +5,10 @@ import javax.swing.Action
 import javax.swing.Box
 import javax.swing.JComponent
 
-abstract class RootView(viewTitle: String, width: Int = 400, height: Int = 600) : DialogWrapper(true) {
+/**
+ * 自定义跟视图
+ */
+abstract class CustomRootView(viewTitle: String, private val width: Int = 400, private val height: Int = 600) : DialogWrapper(true) {
 
     protected val rootBox: Box = Box.createVerticalBox()
 
@@ -13,13 +16,13 @@ abstract class RootView(viewTitle: String, width: Int = 400, height: Int = 600) 
         super.init()
         title = viewTitle
         isResizable = false
-        setSize(width, height)
     }
 
     /**
      * 放入根Box
      */
     override fun createCenterPanel(): JComponent {
+        setSize(width, height)
         return rootBox
     }
 
