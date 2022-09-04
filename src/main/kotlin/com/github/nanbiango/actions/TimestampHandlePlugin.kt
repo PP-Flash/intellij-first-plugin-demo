@@ -1,6 +1,6 @@
 package com.github.nanbiango.actions
 
-import com.github.nanbiango.views.javaview.TimestampUnixView
+import com.github.nanbiango.views.gui.TimestampUnixView
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 

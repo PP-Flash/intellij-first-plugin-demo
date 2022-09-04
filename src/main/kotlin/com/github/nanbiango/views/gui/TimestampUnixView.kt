@@ -1,4 +1,4 @@
-package com.github.nanbiango.views.javaview
+package com.github.nanbiango.views.gui
 
 import com.github.nanbiango.utils.Utils
 import com.github.nanbiango.utils.regularMatch

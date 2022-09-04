@@ -1,6 +1,6 @@
 package com.github.nanbiango.actions
 
-import com.github.nanbiango.views.JsonFormatViewCustom
+import com.github.nanbiango.views.JsonFormatView
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 
@@ -9,6 +9,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
  */
 class JsonHandlePlugin : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-        JsonFormatViewCustom().show()
+        JsonFormatView().show()
     }
 }
