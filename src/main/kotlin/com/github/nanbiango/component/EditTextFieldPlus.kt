@@ -6,14 +6,7 @@ import com.intellij.ui.EditorTextField
 /**
  * EditorTextField的扩展
  */
-open class EditTextFieldPlus(val oneLine: Boolean = false) : EditorTextField() {
-
-    private val serialVersionUID: Long = -7437595304971227487L
-
-    /**
-     * 占位符内容
-     */
-    var placeholder: String = ""
+open class EditTextFieldPlus(private var oneLine: Boolean = false, var placeholder: String = "") : EditorTextField() {
 
     /**
      * 重写并增加滚动条

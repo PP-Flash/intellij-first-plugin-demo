@@ -2,10 +2,10 @@ package com.github.nanbiango.utils
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.ui.Messages
-import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.time.Duration
 
@@ -20,7 +20,7 @@ object Utils {
         .callTimeout(Duration.ofSeconds(10))
         .build()
 
-    public val gson = GsonBuilder().setPrettyPrinting().create()
+    val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
     //普通消息
     fun showMessage(message: String) = Messages.showInfoMessage(message, "提示")
