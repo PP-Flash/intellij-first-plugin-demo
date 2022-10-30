@@ -2,13 +2,14 @@ package com.github.nanbiango.views.gui
 
 import com.github.nanbiango.utils.Utils
 import com.github.nanbiango.utils.regularMatch
-import com.intellij.openapi.ui.DialogWrapper
 import java.awt.event.ActionListener
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import javax.swing.*
+import javax.swing.JButton
+import javax.swing.JPanel
+import javax.swing.JTextField
 
 /**
  * 时间戳视图
@@ -18,7 +19,8 @@ import javax.swing.*
  * @author wangchenglong
  * @since 2022-09-03
  */
-class TimestampUnixView : DialogWrapper(true) {
+//class TimestampUnixView : DialogWrapper(true) {
+class TimestampUnixView {
     //最外层Panel面板
     private lateinit var timestampMainPanel: JPanel
 
@@ -52,15 +54,19 @@ class TimestampUnixView : DialogWrapper(true) {
     private val timeFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     init {
-        title = "时间戳Unix工具"
-        isResizable = false
-        super.init()
+//        title = "时间戳Unix工具"
+//        isResizable = false
+//        super.init()
         //初始化默认的实例文本
         this.initTime()
         //按钮事件注册
         timeConvBtn.addActionListener(timeConv())
         timestampConvBtn.addActionListener(timestampConv())
         rollbackAllBtn.addActionListener { this.initTime() }
+    }
+
+    fun getMainPanel(): JPanel {
+        return timestampMainPanel
     }
 
     /**
@@ -112,11 +118,12 @@ class TimestampUnixView : DialogWrapper(true) {
         afterTimeSecondText.text = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).format(timeFormat)
     }
 
-    override fun createCenterPanel(): JComponent {
-        return timestampMainPanel
-    }
 
-    override fun createActions(): Array<Action> {
-        return emptyArray()
-    }
+//    override fun createCenterPanel(): JComponent {
+//        return timestampMainPanel
+//    }
+//
+//    override fun createActions(): Array<Action> {
+//        return emptyArray()
+//    }
 }

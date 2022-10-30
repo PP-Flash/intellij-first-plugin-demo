@@ -10,6 +10,9 @@
         <!--        <applicationService-->
         <!--                serviceImplementation="com.github.nanbiango.services.MyApplicationService"/>-->
         <!--        <projectService serviceImplementation="com.github.nanbiango.services.MyProjectService"/>-->
+
+        <toolWindow id="TimestampTools" secondary="true"
+                    factoryClass="com.github.nanbiango.views.base.MyToolWindowFactory"/>
     </extensions>
 
     <!--    <applicationListeners>-->
