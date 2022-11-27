@@ -23,7 +23,6 @@ dependencies {
     implementation("org.yaml:snakeyaml:1.30")
 //    implementation("com.alibaba:fastjson:2.0.11")
     implementation("com.google.code.gson:gson:2.9.1")
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
