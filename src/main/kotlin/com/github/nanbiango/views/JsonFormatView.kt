@@ -10,6 +10,7 @@ import com.intellij.openapi.diagnostic.thisLogger
 import org.apache.commons.lang3.StringUtils
 import javax.swing.Box
 import javax.swing.JButton
+import javax.swing.JComponent
 
 /**
  * JSON数据的处理
@@ -23,6 +24,7 @@ class JsonFormatView : CustomRootView("Json文件处理") {
     private val bottomBox: Box = Box.createHorizontalBox()
 
     init {
+        super.init()
         //属性初始化
         this.initComponent()
     }
@@ -68,4 +70,7 @@ class JsonFormatView : CustomRootView("Json文件处理") {
         rootBox.add(bottomBox)
     }
 
+    override fun createPanel(): JComponent {
+        return rootBox
+    }
 }

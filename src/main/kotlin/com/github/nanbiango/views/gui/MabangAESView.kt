@@ -72,11 +72,7 @@ class MabangAESView(viewTitle: String, width: Int, height: Int) : CustomRootView
         }
     }
 
-    /**
-     * 放入根Box
-     */
-    override fun createCenterPanel(): JComponent {
-        super.setSize()
+    override fun createPanel(): JComponent {
         return aesMainPanel
     }
 }

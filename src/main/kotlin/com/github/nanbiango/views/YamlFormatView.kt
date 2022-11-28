@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils
 import org.yaml.snakeyaml.Yaml
 import javax.swing.Box
 import javax.swing.JButton
+import javax.swing.JComponent
 
 /**
  * Yaml数据
@@ -20,6 +21,7 @@ class YamlFormatView : CustomRootView("Yaml文件处理") {
     private val bottomBox: Box = Box.createHorizontalBox()
 
     init {
+        super.init()
         //属性初始化
         this.initComponent()
     }
@@ -48,5 +50,9 @@ class YamlFormatView : CustomRootView("Yaml文件处理") {
         //追加到根Box
         rootBox.add(topBox)
         rootBox.add(bottomBox)
+    }
+
+    override fun createPanel(): JComponent {
+        return rootBox
     }
 }

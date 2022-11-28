@@ -121,10 +121,7 @@ class TimestampUnixView(viewTitle: String, width: Int, height: Int) : CustomRoot
         afterTimeSecondText.text = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).format(timeFormat)
     }
 
-    /**
-     * 放入根Box
-     */
-    override fun createCenterPanel(): JComponent {
+    override fun createPanel(): JComponent {
         return timestampMainPanel
     }
 }

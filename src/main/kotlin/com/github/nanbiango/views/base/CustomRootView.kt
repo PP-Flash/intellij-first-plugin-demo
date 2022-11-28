@@ -21,12 +21,14 @@ abstract class CustomRootView(viewTitle: String, private val width: Int = 400, p
         super.setSize(width, height)
     }
 
+    abstract fun createPanel(): JComponent
+
     /**
      * 放入根Box
      */
     override fun createCenterPanel(): JComponent {
         setSize()
-        return rootBox
+        return createPanel()
     }
 
     /**
