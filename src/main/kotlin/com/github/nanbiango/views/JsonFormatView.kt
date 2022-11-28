@@ -1,7 +1,9 @@
 package com.github.nanbiango.views
 
 import com.github.nanbiango.component.EditTextFieldPlus
-import com.github.nanbiango.utils.Utils
+import com.github.nanbiango.utils.showErrorMessage
+import com.github.nanbiango.utils.showInfoMessage
+import com.github.nanbiango.utils.toJson
 import com.github.nanbiango.views.base.CustomRootView
 import com.google.gson.JsonParser
 import com.intellij.openapi.diagnostic.thisLogger
@@ -32,28 +34,28 @@ class JsonFormatView : CustomRootView("Json文件处理") {
         checkFileBtn.addActionListener {
             val jsonText = etf.text
             if (StringUtils.isEmpty(jsonText)) {
-                Utils.showMessage("内容不能为空")
+                "内容不能为空".showInfoMessage()
                 return@addActionListener
             }
             try {
                 JsonParser.parseString(jsonText)
-                Utils.showMessage("格式校验通过")
+                "格式校验通过".showInfoMessage()
             } catch (e: Exception) {
-                Utils.showErrorMessage(e.message ?: "格式校验异常")
+                (e.message ?: "格式校验异常").showErrorMessage()
             }
         }
         //格式化内容点击事件
         formatBtn.addActionListener {
             val jsonText = etf.text
             if (StringUtils.isEmpty(jsonText)) {
-                Utils.showMessage("内容不能为空")
+                "内容不能为空".showInfoMessage()
                 return@addActionListener
             }
             try {
-                etf.text = Utils.gson.toJson(JsonParser.parseString(jsonText))
+                etf.text = JsonParser.parseString(jsonText).toJson()
             } catch (e: Exception) {
                 thisLogger().error("Json处理异常", e)
-                Utils.showErrorMessage(e.message ?: "格式异常，格式化失败")
+                (e.message ?: "格式异常，格式化失败").showErrorMessage()
             }
         }
 

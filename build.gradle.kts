@@ -6,7 +6,7 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    id("org.jetbrains.kotlin.jvm") version "1.7.10"
     // Gradle IntelliJ Plugin
     id("org.jetbrains.intellij") version "1.8.0"
 }
@@ -21,8 +21,10 @@ repositories {
 
 dependencies {
     implementation("org.yaml:snakeyaml:1.30")
-//    implementation("com.alibaba:fastjson:2.0.11")
     implementation("com.google.code.gson:gson:2.9.1")
+    implementation("com.google.guava:guava:31.1-jre")
+    implementation("cn.hutool:hutool-core:5.8.10")
+    implementation("cn.hutool:hutool-crypto:5.8.10")
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin

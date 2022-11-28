@@ -13,16 +13,19 @@ abstract class CustomRootView(viewTitle: String, private val width: Int = 400, p
     protected val rootBox: Box = Box.createVerticalBox()
 
     init {
-        super.init()
         title = viewTitle
         isResizable = false
+    }
+
+    fun setSize() {
+        super.setSize(width, height)
     }
 
     /**
      * 放入根Box
      */
     override fun createCenterPanel(): JComponent {
-        setSize(width, height)
+        setSize()
         return rootBox
     }
 

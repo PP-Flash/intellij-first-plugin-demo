@@ -1,13 +1,16 @@
 package com.github.nanbiango.views.gui
 
-import com.github.nanbiango.utils.Utils
 import com.github.nanbiango.utils.regularMatch
+import com.github.nanbiango.utils.showErrorMessage
+import com.github.nanbiango.utils.showInfoMessage
+import com.github.nanbiango.views.base.CustomRootView
 import java.awt.event.ActionListener
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.swing.JButton
+import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JTextField
 
@@ -19,8 +22,7 @@ import javax.swing.JTextField
  * @author wangchenglong
  * @since 2022-09-03
  */
-//class TimestampUnixView : DialogWrapper(true) {
-class TimestampUnixView {
+class TimestampUnixView(viewTitle: String, width: Int, height: Int) : CustomRootView(viewTitle, width, height) {
     //最外层Panel面板
     private lateinit var timestampMainPanel: JPanel
 
@@ -54,9 +56,7 @@ class TimestampUnixView {
     private val timeFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     init {
-//        title = "时间戳Unix工具"
-//        isResizable = false
-//        super.init()
+        super.init()
         //初始化默认的实例文本
         this.initTime()
         //按钮事件注册
@@ -65,6 +65,9 @@ class TimestampUnixView {
         rollbackAllBtn.addActionListener { this.initTime() }
     }
 
+    /**
+     * idea工具窗口的方式出现
+     */
     fun getMainPanel(): JPanel {
         return timestampMainPanel
     }
@@ -87,7 +90,7 @@ class TimestampUnixView {
     private fun timeConv() = ActionListener {
         val timeText = timeTxt.text
         if (timeText.isNullOrEmpty()) {
-            Utils.showErrorMessage("时间文本为空")
+            "时间文本为空".showErrorMessage()
             return@ActionListener
         }
         try {
@@ -95,7 +98,7 @@ class TimestampUnixView {
             afterTimestampMillsText.text = localTime.toEpochMilli().toString()
             afterTimestampSecondText.text = localTime.epochSecond.toString()
         } catch (e: Exception) {
-            Utils.showErrorMessage("时间格式错误:${e.message}")
+            "时间格式错误:${e.message}".showErrorMessage()
             return@ActionListener
         }
     }
@@ -106,11 +109,11 @@ class TimestampUnixView {
     private fun timestampConv() = ActionListener {
         val timestampText = timestampTxt.text
         if (timestampText.isNullOrEmpty()) {
-            Utils.showErrorMessage("时间戳文本为空")
+            "时间戳文本为空".showInfoMessage()
             return@ActionListener
         }
         if (!"\\d+".regularMatch(timestampText)) {
-            Utils.showErrorMessage("时间戳文本非纯数字")
+            "时间戳文本非纯数字".showErrorMessage()
             return@ActionListener
         }
         val timestamp = timestampText.toLong()
@@ -118,12 +121,10 @@ class TimestampUnixView {
         afterTimeSecondText.text = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).format(timeFormat)
     }
 
-
-//    override fun createCenterPanel(): JComponent {
-//        return timestampMainPanel
-//    }
-//
-//    override fun createActions(): Array<Action> {
-//        return emptyArray()
-//    }
+    /**
+     * 放入根Box
+     */
+    override fun createCenterPanel(): JComponent {
+        return timestampMainPanel
+    }
 }

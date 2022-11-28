@@ -11,8 +11,8 @@
         <!--                serviceImplementation="com.github.nanbiango.services.MyApplicationService"/>-->
         <!--        <projectService serviceImplementation="com.github.nanbiango.services.MyProjectService"/>-->
 
-<!--        <toolWindow id="TimestampTools" secondary="true"-->
-<!--                    factoryClass="com.github.nanbiango.views.base.MyToolWindowFactory"/>-->
+        <!--        <toolWindow id="TimestampTools" secondary="true"-->
+        <!--                    factoryClass="com.github.nanbiango.views.base.MyToolWindowFactory"/>-->
     </extensions>
 
     <!--    <applicationListeners>-->
@@ -30,6 +30,9 @@
             </action>
             <action id="TimestampUnixView.Menu" class="com.github.nanbiango.actions.TimestampHandlePlugin"
                     text="时间戳Unix工具" description="时间戳Unix工具">
+            </action>
+            <action id="MabangAesDecrypt.Menu" class="com.github.nanbiango.actions.MabangAESDecryptHandlePlugin"
+                    text="马帮AES解密" description="马帮AES解密">
             </action>
         </group>
     </actions>

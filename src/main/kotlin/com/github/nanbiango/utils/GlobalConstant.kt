@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder
  * 全局
  */
 object GlobalConstant {
-    val gson: Gson = GsonBuilder().create()
+    val GSON: Gson = GsonBuilder().create()
 
-    val gsonPretty: Gson = GsonBuilder().setPrettyPrinting().create()
+    val GSON_PRETTY: Gson = GsonBuilder().setPrettyPrinting().create()
 }
