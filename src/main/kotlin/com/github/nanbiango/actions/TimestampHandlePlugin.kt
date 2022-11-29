@@ -9,6 +9,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
  */
 class TimestampHandlePlugin : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-        TimestampUnixView("时间戳Unix工具", 600, 280).show()
+        TimestampUnixView("时间戳Unix工具", 600, 220).show()
     }
 }
