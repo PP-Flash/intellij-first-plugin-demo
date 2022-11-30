@@ -21,10 +21,10 @@ repositories {
 
 dependencies {
     implementation("org.yaml:snakeyaml:1.30")
-    implementation("com.google.code.gson:gson:2.9.1")
     implementation("com.google.guava:guava:31.1-jre")
     implementation("cn.hutool:hutool-core:5.8.10")
     implementation("cn.hutool:hutool-crypto:5.8.10")
+    implementation("com.alibaba.fastjson2:fastjson2:2.0.20")
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
