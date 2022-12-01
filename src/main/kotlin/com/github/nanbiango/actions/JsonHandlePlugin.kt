@@ -9,6 +9,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
  */
 class JsonHandlePlugin : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-        JsonFormatView("Json文件处理", 800, 800).show()
+        JsonFormatView("Json文件处理", 900, 700).show()
     }
 }

@@ -9,7 +9,8 @@ import com.github.nanbiango.utils.showErrorMessage
 import com.github.nanbiango.utils.showInfoMessage
 import com.github.nanbiango.views.base.CustomRootView
 import org.apache.commons.lang3.StringUtils
-import java.awt.Dimension
+import java.awt.event.WindowAdapter
+import java.awt.event.WindowEvent
 import javax.swing.Box
 import javax.swing.JButton
 import javax.swing.JComponent
@@ -24,11 +25,12 @@ class JsonFormatView(viewTitle: String, width: Int, height: Int) : CustomRootVie
     private val viewWidth = width
 
     companion object {
-        val etfLeft: EditTextFieldPlus = EditTextFieldPlus()
+        val etfLeft: EditTextFieldPlus = EditTextFieldPlus(placeholder = "请输入Json格式内容...")
         val etfRight: EditTextFieldPlus = EditTextFieldPlus()
         val transferLabel = JLabel("  <=>  ")
-        val formatBtn: JButton = JButton("格式化")
-        val jsonEscapeBtn: JButton = JButton("Json转义")
+        val formatBtn = JButton("格式化")
+        val jsonEscapeBtn = JButton("Json转义")
+        val clearBtn = JButton("清空文本")
         val topBox: Box = Box.createHorizontalBox()
         val bottomBox: Box = Box.createHorizontalBox()
     }
@@ -37,24 +39,34 @@ class JsonFormatView(viewTitle: String, width: Int, height: Int) : CustomRootVie
         super.init()
         //属性初始化
         this.initComponent()
+
+        window.addWindowListener(object : WindowAdapter() {
+            override fun windowClosed(e: WindowEvent?) {
+                etfLeft.text = ""
+                etfRight.text = ""
+            }
+        })
     }
 
     private fun initComponent() {
-        //创建编辑器
-        etfLeft.placeholder = "请输入Json格式内容..."
-
         //格式化内容点击事件
         formatBtn.addActionListener { this.formatJsonHandle(etfLeft.text) }
         //Json转义
         jsonEscapeBtn.addActionListener { this.escapeJsonHandle(etfLeft.text) }
+        //清空
+        clearBtn.addActionListener {
+            etfLeft.text = ""
+            etfRight.text = ""
+        }
 
         //装填文本框和底部按钮
         topBox.add(etfLeft)
         topBox.add(transferLabel)
         topBox.add(etfRight)
+
         bottomBox.add(formatBtn)
         bottomBox.add(jsonEscapeBtn)
-        bottomBox.size = Dimension(viewWidth, 100)
+        bottomBox.add(clearBtn)
         //追加到根Box
         rootBox.add(topBox)
         rootBox.add(bottomBox)
