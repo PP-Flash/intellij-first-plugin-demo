@@ -1,7 +1,6 @@
 package com.github.nanbiango.utils
 
 import com.intellij.openapi.ui.Messages
-import java.util.*
 import java.util.regex.Pattern
 
 /**
@@ -16,24 +15,6 @@ class FunExtension
  */
 fun String.regularMatch(value: String): Boolean {
     return Pattern.compile(this).matcher(value).matches()
-}
-
-fun Any?.toJson(): String {
-    if (Objects.isNull(this)) {
-        return ""
-    }
-    return GlobalConstant.GSON.toJson(this)
-}
-
-fun Any?.toJsonPretty(): String {
-    if (Objects.isNull(this)) {
-        return ""
-    }
-    return GlobalConstant.GSON_PRETTY.toJson(this)
-}
-
-fun <T> String.fromJson(clazz: Class<T>): T {
-    return GlobalConstant.GSON.fromJson(this, clazz)
 }
 
 fun String.showInfoMessage() {

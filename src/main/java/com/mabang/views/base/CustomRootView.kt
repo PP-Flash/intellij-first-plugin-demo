@@ -10,7 +10,10 @@ import javax.swing.JComponent
  */
 abstract class CustomRootView(viewTitle: String, private val width: Int = 400, private val height: Int = 600) : DialogWrapper(true) {
 
-    protected val rootBox: Box = Box.createVerticalBox()
+    companion object {
+        val rootBox: Box = Box.createVerticalBox()
+    }
+
 
     init {
         title = viewTitle

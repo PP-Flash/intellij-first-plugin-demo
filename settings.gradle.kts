@@ -1,1 +1,1 @@
-rootProject.name = "chenglong-tools-plugin"
+rootProject.name = "mabang-tools-plugin"

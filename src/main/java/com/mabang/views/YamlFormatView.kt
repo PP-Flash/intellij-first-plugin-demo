@@ -21,9 +21,9 @@ class YamlFormatView : CustomRootView("Yaml文件处理") {
     private val bottomBox: Box = Box.createHorizontalBox()
 
     init {
-        super.init()
-        //属性初始化
         this.initComponent()
+        //初始化
+        super.init()
     }
 
     private fun initComponent() {
