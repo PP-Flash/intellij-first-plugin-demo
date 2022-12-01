@@ -39,9 +39,9 @@ class JsonFormatView(viewTitle: String, width: Int, height: Int) : CustomRootVie
         super.init()
         //属性初始化
         this.initComponent()
-
+        //监听窗口关闭
         window.addWindowListener(object : WindowAdapter() {
-            override fun windowClosed(e: WindowEvent?) {
+            override fun windowClosed(e: WindowEvent) {
                 etfLeft.text = ""
                 etfRight.text = ""
             }
