@@ -1,22 +1,22 @@
 package com.mabang.actions;
 
-import com.github.nanbiango.views.JsonFormatView;
+import com.github.nanbiango.views.gui.MabangAESView;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Json处理
+ * 马帮AES处理
  *
  * @author wangchenglong
  * @since 2022-12-01
  */
-public class JsonHandlePlugin extends AnAction {
+public class MaBangAesAction extends AnAction {
 
-    public static final JsonFormatView jsonFormatView = new JsonFormatView("Json文件处理", 900, 700);
+    public static final MabangAESView mabangAESView = new MabangAESView();
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        jsonFormatView.show();
+        mabangAESView.show();
     }
 }

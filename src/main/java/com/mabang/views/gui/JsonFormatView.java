@@ -1,0 +1,155 @@
+package com.mabang.views.gui;
+
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONWriter;
+import com.mabang.component.EditTextFieldPlus;
+import com.mabang.utils.MessageUtils;
+import com.mabang.views.base.BaseDialogWrapper;
+
+import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Json数据处理视图
+ */
+public class JsonFormatView extends BaseDialogWrapper {
+
+    protected EditTextFieldPlus etfLeft = new EditTextFieldPlus(false, "请输入Json格式内容...");
+    protected EditTextFieldPlus etfRight = new EditTextFieldPlus();
+    protected JLabel transferLabel = new JLabel("  <=>  ");
+    protected JButton formatBtn = new JButton("格式化");
+    protected JButton jsonEscapeBtn = new JButton("Json转义");
+    protected JButton clearBtn = new JButton("清空文本");
+    protected Box topBox = Box.createHorizontalBox();
+    protected Box bottomBox = Box.createHorizontalBox();
+
+    {
+        this.initComponent();
+        super.init();
+    }
+
+    @Override
+    protected JComponent createPanel() {
+        return rootBox;
+    }
+
+    @Override
+    protected String title() {
+        return "Json数据处理";
+    }
+
+    @Override
+    public int width() {
+        return 900;
+    }
+
+    @Override
+    public int height() {
+        return 700;
+    }
+
+    private void initComponent() {
+        //格式化内容点击事件
+        formatBtn.addActionListener(e -> this.formatJsonHandle(etfLeft.getText()));
+        //Json转义
+        jsonEscapeBtn.addActionListener(e -> this.escapeJsonHandle(etfLeft.getText()));
+        //清空
+        clearBtn.addActionListener(e -> {
+            etfLeft.setText("");
+            etfRight.setText("");
+        });
+        getWindow().addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                etfLeft.setText("");
+                etfRight.setText("");
+            }
+        });
+
+        //装填文本框和底部按钮
+        topBox.add(etfLeft);
+        topBox.add(transferLabel);
+        topBox.add(etfRight);
+
+        bottomBox.add(formatBtn);
+        bottomBox.add(jsonEscapeBtn);
+        bottomBox.add(clearBtn);
+        //追加到根Box
+        rootBox.add(topBox);
+        rootBox.add(bottomBox);
+    }
+
+    /**
+     * 格式化Json
+     */
+    private void formatJsonHandle(String jsonText) {
+        if (StrUtil.isEmpty(jsonText)) {
+            MessageUtils.showErrorMessage("内容不能为空");
+            return;
+        }
+        if (!JSON.isValid(jsonText)) {
+            MessageUtils.showErrorMessage("Json格式不合法");
+            return;
+        }
+        if (JSON.isValidArray(jsonText)) {
+            etfRight.setText(JSON.parseArray(jsonText).toJSONString(JSONWriter.Feature.PrettyFormat));
+        } else {
+            etfRight.setText(JSON.parseObject(jsonText).toJSONString(JSONWriter.Feature.PrettyFormat));
+        }
+    }
+
+
+    private void escapeJsonHandle(String jsonText) {
+        if (StrUtil.isEmpty(jsonText)) {
+            MessageUtils.showErrorMessage("内容不能为空");
+            return;
+        }
+        var jsonStr = jsonText;
+        //是否包含转义符
+        if (jsonStr.contains("\\")) {
+            jsonStr = jsonText.replace("\\", "");
+        }
+        if (!JSON.isValid(jsonStr)) {
+            MessageUtils.showErrorMessage("Json格式不合法");
+            return;
+        }
+        var rootList = new ArrayList<Map<String, Object>>();
+        if (JSON.isValidArray(jsonStr)) {
+            JSON.parseArray(jsonStr, JSONObject.class).forEach(jsonObj -> rootList.add(this.escapeJson(((JSONObject) jsonObj).toJSONString())));
+            etfRight.setText(JSON.toJSONString(rootList, JSONWriter.Feature.PrettyFormat));
+        } else {
+            etfRight.setText(JSON.toJSONString(this.escapeJson(jsonStr), JSONWriter.Feature.PrettyFormat));
+        }
+    }
+
+    /**
+     * 转义Json对象
+     */
+    private Map<String, Object> escapeJson(String jsonText) {
+        var jsonMap = new HashMap<String, Object>();
+        if (JSON.isValidObject(jsonText)) {
+            JSON.parseObject(jsonText).forEach((key, value) -> {
+                var v = value.toString();
+                if (JSON.isValidObject(v)) {
+                    jsonMap.put(key, this.escapeJson(v));
+                } else if (JSON.isValidArray(v)) {
+                    var list = new ArrayList<Map<String, Object>>();
+                    JSONArray.parseArray(v)
+                            .toList(JSONObject.class)
+                            .forEach(json -> list.add(this.escapeJson(json.toJSONString())));
+                    jsonMap.put(key, list);
+                } else {
+                    jsonMap.put(v, key);
+                }
+            });
+        }
+        return jsonMap;
+    }
+}

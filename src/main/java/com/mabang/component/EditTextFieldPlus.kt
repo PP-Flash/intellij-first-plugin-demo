@@ -1,4 +1,4 @@
-package com.github.nanbiango.component
+package com.mabang.component
 
 import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.ui.EditorTextField

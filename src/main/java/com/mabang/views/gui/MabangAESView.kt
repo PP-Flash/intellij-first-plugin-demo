@@ -3,7 +3,7 @@ package com.github.nanbiango.views.gui
 import cn.hutool.crypto.Mode
 import cn.hutool.crypto.Padding
 import cn.hutool.crypto.symmetric.AES
-import com.github.nanbiango.views.base.CustomRootView
+import com.mabang.views.base.BaseDialogWrapper
 import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -15,7 +15,7 @@ import javax.swing.JTextArea
  * @author wangchenglong
  * @since 2022-11-28
  */
-class MabangAESView(viewTitle: String, width: Int, height: Int) : CustomRootView(viewTitle, width, height) {
+class MabangAESView : BaseDialogWrapper() {
 
     companion object {
         const val PKCS7Padding = "PKCS7Padding"
@@ -104,5 +104,17 @@ class MabangAESView(viewTitle: String, width: Int, height: Int) : CustomRootView
 
     override fun createPanel(): JComponent {
         return aesMainPanel
+    }
+
+    override fun title(): String {
+        return "马帮AES解密"
+    }
+
+    override fun width(): Int {
+        return 600
+    }
+
+    override fun height(): Int {
+        return 450
     }
 }

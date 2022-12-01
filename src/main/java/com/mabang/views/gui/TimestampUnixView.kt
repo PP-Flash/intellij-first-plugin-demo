@@ -1,9 +1,8 @@
 package com.github.nanbiango.views.gui
 
-import com.github.nanbiango.utils.regularMatch
-import com.github.nanbiango.utils.showErrorMessage
-import com.github.nanbiango.utils.showInfoMessage
-import com.github.nanbiango.views.base.CustomRootView
+import com.mabang.utils.regularMatch
+import com.mabang.utils.showErrorMessage
+import com.mabang.views.base.BaseDialogWrapper
 import java.awt.event.ActionListener
 import java.time.Instant
 import java.time.LocalDateTime
@@ -22,7 +21,7 @@ import javax.swing.JTextField
  * @author wangchenglong
  * @since 2022-09-03
  */
-class TimestampUnixView(viewTitle: String, width: Int, height: Int) : CustomRootView(viewTitle, width, height) {
+class TimestampUnixView : BaseDialogWrapper() {
     //最外层Panel面板
     private lateinit var timestampMainPanel: JPanel
 
@@ -109,7 +108,7 @@ class TimestampUnixView(viewTitle: String, width: Int, height: Int) : CustomRoot
     private fun timestampConv() = ActionListener {
         val timestampText = timestampTxt.text
         if (timestampText.isNullOrEmpty()) {
-            "时间戳文本为空".showInfoMessage()
+            "时间戳文本为空".showErrorMessage()
             return@ActionListener
         }
         if (!"\\d+".regularMatch(timestampText)) {
@@ -117,11 +116,25 @@ class TimestampUnixView(viewTitle: String, width: Int, height: Int) : CustomRoot
             return@ActionListener
         }
         val timestamp = timestampText.toLong()
-        afterTimeMillsText.text = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault()).format(timeFormat)
-        afterTimeSecondText.text = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).format(timeFormat)
+        afterTimeMillsText.text =
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault()).format(timeFormat)
+        afterTimeSecondText.text =
+            LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneId.systemDefault()).format(timeFormat)
     }
 
     override fun createPanel(): JComponent {
         return timestampMainPanel
+    }
+
+    override fun title(): String {
+        return "马帮AES解密"
+    }
+
+    override fun width(): Int {
+        return 600
+    }
+
+    override fun height(): Int {
+        return 200
     }
 }

@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.nanbiango</id>
-    <name>MaBangMiddleGroundTools</name>
+    <id>mb</id>
+    <name>MBTools</name>
     <vendor>wangchenglong</vendor>
 
     <depends>com.intellij.modules.platform</depends>
@@ -20,18 +20,18 @@
     <!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
     <!--    </applicationListeners>-->
     <actions>
-        <group id="ChengLongPlugins.Group" text="中台工具箱">
+        <group id="ToolsPlugins.Group" text="中台工具箱">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="YamlHandle.Menu" class="com.github.nanbiango.actions.YamlHandlePlugin"
+            <action id="YamlHandle.Menu" class="com.mabang.actions.YamlFileAction"
                     text="Yaml文件处理">
             </action>
-            <action id="JsonHandle.Menu" class="com.github.nanbiango.actions.JsonHandlePlugin"
+            <action id="JsonHandle.Menu" class="com.mabang.actions.JsonFormatAction"
                     text="Json文件处理">
             </action>
-            <action id="TimestampUnixView.Menu" class="com.github.nanbiango.actions.TimestampHandlePlugin"
+            <action id="TimestampUnixView.Menu" class="com.mabang.actions.TimestampAction"
                     text="时间戳Unix工具">
             </action>
-            <action id="MabangAesDecrypt.Menu" class="com.github.nanbiango.actions.MabangAESDecryptHandlePlugin"
+            <action id="MabangAesDecrypt.Menu" class="com.mabang.actions.MaBangAesAction"
                     text="马帮AES解密">
             </action>
         </group>
