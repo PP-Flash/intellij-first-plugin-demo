@@ -3,7 +3,7 @@ package com.mabang.utils;
 import com.intellij.openapi.ui.Messages;
 
 /**
- * TODO:
+ * 消息工具类
  */
 public class MessageUtils {
     public static void showInfoMessage(String message) {

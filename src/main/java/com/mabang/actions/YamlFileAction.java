@@ -1,6 +1,5 @@
 package com.mabang.actions;
 
-import com.github.nanbiango.views.gui.TimestampUnixView;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.mabang.views.gui.YamlFormatView;
@@ -11,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class YamlFileAction extends AnAction {
 
-    public static final YamlFormatView yamlFormatView = new YamlFormatView();
+    public final YamlFormatView yamlFormatView = new YamlFormatView();
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
