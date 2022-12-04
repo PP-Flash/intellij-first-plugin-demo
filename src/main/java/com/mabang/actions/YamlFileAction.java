@@ -10,10 +10,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class YamlFileAction extends AnAction {
 
-    public final YamlFormatView yamlFormatView = new YamlFormatView();
-
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        yamlFormatView.show();
+        new YamlFormatView().show();
     }
 }

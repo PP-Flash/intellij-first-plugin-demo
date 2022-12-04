@@ -47,7 +47,6 @@ class MabangAESView : BaseDialogWrapper() {
     private lateinit var mdcAesResultArea: JTextArea
 
     init {
-        super.init()
         //加解密按钮监听
         decryptBtn.addActionListener { this.decryptContent() }
         cryptBtn.addActionListener { this.cryptContent() }
@@ -57,6 +56,7 @@ class MabangAESView : BaseDialogWrapper() {
             aesResultArea.text = ""
             mdcAesResultArea.text = ""
         }
+        super.init()
     }
 
     /**

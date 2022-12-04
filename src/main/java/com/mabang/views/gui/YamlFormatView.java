@@ -20,7 +20,7 @@ public class YamlFormatView extends BaseDialogWrapper {
     private final Box topBox = Box.createHorizontalBox();
     private final Box bottomBox = Box.createHorizontalBox();
 
-    {
+    public YamlFormatView() {
         this.initComponent();
         super.init();
     }

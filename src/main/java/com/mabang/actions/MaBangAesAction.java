@@ -13,10 +13,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class MaBangAesAction extends AnAction {
 
-    public final MabangAESView mabangAESView = new MabangAESView();
-
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        mabangAESView.show();
+        new MabangAESView().show();
     }
 }

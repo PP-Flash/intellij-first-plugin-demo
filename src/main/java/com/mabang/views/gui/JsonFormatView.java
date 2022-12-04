@@ -21,16 +21,14 @@ import java.util.Map;
  */
 public class JsonFormatView extends BaseDialogWrapper {
 
-    public EditTextFieldPlus etfLeft = new EditTextFieldPlus(false, "请输入Json格式内容...");
-    public EditTextFieldPlus etfRight = new EditTextFieldPlus();
-    public JLabel transferLabel = new JLabel("  <=>  ");
-    public JButton formatBtn = new JButton("格式化");
-    public JButton jsonEscapeBtn = new JButton("Json转义");
+    public EditTextFieldPlus etfText = new EditTextFieldPlus(false, "请输入Json格式内容...");
+    public JButton formatBtn = new JButton("去除转义符");
+    public JButton jsonEscapeBtn = new JButton("Json格式化");
     public JButton clearBtn = new JButton("清空文本");
     public Box topBox = Box.createHorizontalBox();
     public Box bottomBox = Box.createHorizontalBox();
 
-    {
+    public JsonFormatView() {
         this.initComponent();
         super.init();
     }
@@ -57,26 +55,22 @@ public class JsonFormatView extends BaseDialogWrapper {
 
     private void initComponent() {
         //格式化内容点击事件
-        formatBtn.addActionListener(e -> this.formatJsonHandle(etfLeft.getText()));
+        formatBtn.addActionListener(e -> this.formatJsonHandle(etfText.getText()));
         //Json转义
-        jsonEscapeBtn.addActionListener(e -> this.escapeJsonHandle(etfLeft.getText()));
+        jsonEscapeBtn.addActionListener(e -> this.escapeJsonHandle(etfText.getText()));
         //清空
         clearBtn.addActionListener(e -> {
-            etfLeft.setText("");
-            etfRight.setText("");
+            etfText.setText("");
         });
         getWindow().addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                etfLeft.setText("");
-                etfRight.setText("");
+                etfText.setText("");
             }
         });
 
         //装填文本框和底部按钮
-        topBox.add(etfLeft);
-        topBox.add(transferLabel);
-        topBox.add(etfRight);
+        topBox.add(etfText);
 
         bottomBox.add(formatBtn);
         bottomBox.add(jsonEscapeBtn);
@@ -94,15 +88,7 @@ public class JsonFormatView extends BaseDialogWrapper {
             MessageUtils.showErrorMessage("内容不能为空");
             return;
         }
-        if (!JSON.isValid(jsonText)) {
-            MessageUtils.showErrorMessage("Json格式不合法");
-            return;
-        }
-        if (JSON.isValidArray(jsonText)) {
-            etfRight.setText(JSON.parseArray(jsonText).toJSONString(JSONWriter.Feature.PrettyFormat));
-        } else {
-            etfRight.setText(JSON.parseObject(jsonText).toJSONString(JSONWriter.Feature.PrettyFormat));
-        }
+        etfText.setText(jsonText.replace("\\", ""));
     }
 
     private void escapeJsonHandle(String jsonText) {
@@ -110,21 +96,20 @@ public class JsonFormatView extends BaseDialogWrapper {
             MessageUtils.showErrorMessage("内容不能为空");
             return;
         }
-        var jsonStr = jsonText;
-        //是否包含转义符
-        if (jsonStr.contains("\\")) {
-            jsonStr = jsonText.replace("\\", "");
-        }
-        if (!JSON.isValid(jsonStr)) {
+        if (!JSON.isValid(jsonText)) {
             MessageUtils.showErrorMessage("Json格式不合法");
             return;
         }
-        var rootList = new ArrayList<Map<String, Object>>();
-        if (JSON.isValidArray(jsonStr)) {
-            JSON.parseArray(jsonStr, JSONObject.class).forEach(jsonObj -> rootList.add(this.escapeJson(((JSONObject) jsonObj).toJSONString())));
-            etfRight.setText(JSON.toJSONString(rootList, JSONWriter.Feature.PrettyFormat));
-        } else {
-            etfRight.setText(JSON.toJSONString(this.escapeJson(jsonStr), JSONWriter.Feature.PrettyFormat));
+        try {
+            var rootList = new ArrayList<Map<String, Object>>();
+            if (JSON.isValidArray(jsonText)) {
+                JSON.parseArray(jsonText, JSONObject.class).forEach(jsonObj -> rootList.add(this.escapeJson(((JSONObject) jsonObj).toJSONString())));
+                etfText.setText(JSON.toJSONString(rootList, JSONWriter.Feature.PrettyFormat));
+            } else {
+                etfText.setText(JSON.toJSONString(this.escapeJson(jsonText), JSONWriter.Feature.PrettyFormat));
+            }
+        } catch (Exception e) {
+            MessageUtils.showErrorMessage("异常:" + e.getMessage());
         }
     }
 

@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
  */
 public abstract class BaseDialogWrapper extends DialogWrapper {
 
-    public static final Box rootBox = Box.createVerticalBox();
+    public final Box rootBox = Box.createVerticalBox();
 
     public BaseDialogWrapper() {
         super(false);

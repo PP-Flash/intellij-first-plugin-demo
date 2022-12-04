@@ -10,10 +10,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TimestampAction extends AnAction {
 
-    public final TimestampUnixView timestampUnixView = new TimestampUnixView();
-
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        timestampUnixView.show();
+        new TimestampUnixView().show();
     }
 }

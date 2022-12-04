@@ -55,14 +55,15 @@ class TimestampUnixView : BaseDialogWrapper() {
     private val timeFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     init {
-        super.init()
         //初始化默认的实例文本
         this.initTime()
         //按钮事件注册
         timeConvBtn.addActionListener(timeConv())
         timestampConvBtn.addActionListener(timestampConv())
         rollbackAllBtn.addActionListener { this.initTime() }
+        super.init()
     }
+
 
     /**
      * idea工具窗口的方式出现

@@ -13,10 +13,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class JsonFormatAction extends AnAction {
 
-    public final JsonFormatView jsonFormatView = new JsonFormatView();
-
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        jsonFormatView.show();
+        new JsonFormatView().show();
     }
 }
