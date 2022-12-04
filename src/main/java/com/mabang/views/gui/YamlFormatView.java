@@ -26,12 +26,12 @@ public class YamlFormatView extends BaseDialogWrapper {
     }
 
     @Override
-    protected JComponent createPanel() {
+    public JComponent createPanel() {
         return rootBox;
     }
 
     @Override
-    protected String title() {
+    public String title() {
         return "Yaml文件处理";
     }
 

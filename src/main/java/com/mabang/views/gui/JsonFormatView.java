@@ -21,14 +21,14 @@ import java.util.Map;
  */
 public class JsonFormatView extends BaseDialogWrapper {
 
-    protected EditTextFieldPlus etfLeft = new EditTextFieldPlus(false, "请输入Json格式内容...");
-    protected EditTextFieldPlus etfRight = new EditTextFieldPlus();
-    protected JLabel transferLabel = new JLabel("  <=>  ");
-    protected JButton formatBtn = new JButton("格式化");
-    protected JButton jsonEscapeBtn = new JButton("Json转义");
-    protected JButton clearBtn = new JButton("清空文本");
-    protected Box topBox = Box.createHorizontalBox();
-    protected Box bottomBox = Box.createHorizontalBox();
+    public EditTextFieldPlus etfLeft = new EditTextFieldPlus(false, "请输入Json格式内容...");
+    public EditTextFieldPlus etfRight = new EditTextFieldPlus();
+    public JLabel transferLabel = new JLabel("  <=>  ");
+    public JButton formatBtn = new JButton("格式化");
+    public JButton jsonEscapeBtn = new JButton("Json转义");
+    public JButton clearBtn = new JButton("清空文本");
+    public Box topBox = Box.createHorizontalBox();
+    public Box bottomBox = Box.createHorizontalBox();
 
     {
         this.initComponent();
@@ -36,12 +36,12 @@ public class JsonFormatView extends BaseDialogWrapper {
     }
 
     @Override
-    protected JComponent createPanel() {
+    public JComponent createPanel() {
         return rootBox;
     }
 
     @Override
-    protected String title() {
+    public String title() {
         return "Json数据处理";
     }
 
@@ -104,7 +104,6 @@ public class JsonFormatView extends BaseDialogWrapper {
             etfRight.setText(JSON.parseObject(jsonText).toJSONString(JSONWriter.Feature.PrettyFormat));
         }
     }
-
 
     private void escapeJsonHandle(String jsonText) {
         if (StrUtil.isEmpty(jsonText)) {

@@ -3,28 +3,19 @@ package com.mabang.views.base;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * 父DialogWrapper
  */
 public abstract class BaseDialogWrapper extends DialogWrapper {
 
-    protected static final Box rootBox = Box.createVerticalBox();
+    public static final Box rootBox = Box.createVerticalBox();
 
-
-    protected BaseDialogWrapper() {
-        super(true);
+    public BaseDialogWrapper() {
+        super(false);
         super.setResizable(this.resizable());
         super.setTitle(this.title());
         super.setSize(this.width(), this.height());
@@ -33,12 +24,12 @@ public abstract class BaseDialogWrapper extends DialogWrapper {
     /**
      * 窗体内容
      */
-    protected abstract JComponent createPanel();
+    public abstract JComponent createPanel();
 
     /**
      * 标题
      */
-    protected abstract String title();
+    public abstract String title();
 
     /**
      * 默认窗体宽度
@@ -57,7 +48,7 @@ public abstract class BaseDialogWrapper extends DialogWrapper {
     /**
      * 是否可以改变窗体大小
      */
-    protected boolean resizable() {
+    public boolean resizable() {
         return true;
     }
 
@@ -65,7 +56,7 @@ public abstract class BaseDialogWrapper extends DialogWrapper {
      * 窗体渲染
      */
     @Override
-    protected @Nullable JComponent createCenterPanel() {
+    public @Nullable JComponent createCenterPanel() {
         return createPanel();
     }
 
@@ -73,7 +64,7 @@ public abstract class BaseDialogWrapper extends DialogWrapper {
      * 隐藏默认OK和Cancel按钮
      */
     @Override
-    protected Action @NotNull [] createActions() {
+    public Action @NotNull [] createActions() {
         return new Action[]{};
     }
 
