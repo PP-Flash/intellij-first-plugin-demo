@@ -31,10 +31,10 @@
         <group id="ToolsPlugins.Group" text="中台工具箱">
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="YamlHandle.Menu" class="com.mabang.actions.YamlFileAction"
-                    text="Yaml文件处理">
+                    text="Yaml数据处理">
             </action>
             <action id="JsonHandle.Menu" class="com.mabang.actions.JsonFormatAction"
-                    text="Json文件处理">
+                    text="Json数据处理">
             </action>
             <action id="TimestampUnixView.Menu" class="com.mabang.actions.TimestampAction"
                     text="时间戳Unix工具">

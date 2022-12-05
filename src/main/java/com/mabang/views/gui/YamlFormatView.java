@@ -32,7 +32,7 @@ public class YamlFormatView extends BaseDialogWrapper {
 
     @Override
     public String title() {
-        return "Yaml文件处理";
+        return "Yaml数据处理";
     }
 
     private void initComponent() {
