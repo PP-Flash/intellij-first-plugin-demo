@@ -57,9 +57,9 @@ public class JsonFormatView extends BaseDialogWrapper {
 
     private void initComponent() {
         //格式化内容点击事件
-        formatBtn.addActionListener(e -> this.addEscapeTextHandle(etfLeft.getText()));
+        formatBtn.addActionListener(e -> this.addEscapeTextHandle(etfLeft.getText().trim()));
         //Json转义
-        jsonEscapeBtn.addActionListener(e -> this.escapeJsonHandle(etfLeft.getText()));
+        jsonEscapeBtn.addActionListener(e ->  this.escapeJsonHandle(etfLeft.getText().trim()));
         //清空
         clearBtn.addActionListener(e -> {
             etfLeft.setText("");

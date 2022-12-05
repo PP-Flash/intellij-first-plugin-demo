@@ -88,7 +88,7 @@ class TimestampUnixView : BaseDialogWrapper() {
      * 时间转换
      */
     private fun timeConv() = ActionListener {
-        val timeText = timeTxt.text
+        val timeText = timeTxt.text?.trim()
         if (timeText.isNullOrEmpty()) {
             "时间文本为空".showErrorMessage()
             return@ActionListener
@@ -107,7 +107,7 @@ class TimestampUnixView : BaseDialogWrapper() {
      * 时间戳转换
      */
     private fun timestampConv() = ActionListener {
-        val timestampText = timestampTxt.text
+        val timestampText = timestampTxt.text?.trim()
         if (timestampText.isNullOrEmpty()) {
             "时间戳文本为空".showErrorMessage()
             return@ActionListener

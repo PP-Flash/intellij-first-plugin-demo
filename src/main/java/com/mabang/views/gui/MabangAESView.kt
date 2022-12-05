@@ -67,7 +67,7 @@ class MabangAESView : BaseDialogWrapper() {
         try {
             val aes = AES(Mode.CBC, Padding.PKCS5Padding, AesKey)
             aes.setIv(aesIv)
-            aesResultArea.text = aes.decryptStr(decryptTextArea.text)
+            aesResultArea.text = aes.decryptStr(decryptTextArea.text?.trim())
         } catch (e: Exception) {
             aesResultArea.text = "解密失败,不符合加密规则"
         }
@@ -75,7 +75,7 @@ class MabangAESView : BaseDialogWrapper() {
         try {
             val mdcAes = AES(Mode.CBC.toString(), PKCS7Padding, mdcAesKey)
             mdcAes.setIv(mdcAesIv)
-            mdcAesResultArea.text = mdcAes.decryptStr(decryptTextArea.text)
+            mdcAesResultArea.text = mdcAes.decryptStr(decryptTextArea.text?.trim())
         } catch (e: Exception) {
             mdcAesResultArea.text = "解密失败,不符合加密规则"
         }
@@ -88,7 +88,7 @@ class MabangAESView : BaseDialogWrapper() {
         try {
             val aes = AES(Mode.CBC, Padding.PKCS5Padding, AesKey)
             aes.setIv(aesIv)
-            aesResultArea.text = aes.encryptBase64(decryptTextArea.text)
+            aesResultArea.text = aes.encryptBase64(decryptTextArea.text?.trim())
         } catch (e: Exception) {
             aesResultArea.text = "加密失败:${e.message}"
         }
@@ -96,7 +96,7 @@ class MabangAESView : BaseDialogWrapper() {
         try {
             val mdcAes = AES(Mode.CBC.toString(), PKCS7Padding, mdcAesKey)
             mdcAes.setIv(mdcAesIv)
-            mdcAesResultArea.text = mdcAes.encryptBase64(decryptTextArea.text)
+            mdcAesResultArea.text = mdcAes.encryptBase64(decryptTextArea.text?.trim())
         } catch (e: Exception) {
             mdcAesResultArea.text = "加密失败:${e.message}"
         }
