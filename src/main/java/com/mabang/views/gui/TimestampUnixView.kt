@@ -128,7 +128,7 @@ class TimestampUnixView : BaseDialogWrapper() {
     }
 
     override fun title(): String {
-        return "马帮AES解密"
+        return "时间戳Unix工具"
     }
 
     override fun width(): Int {
