@@ -1,7 +1,5 @@
 package com.tools;
 
-import com.mabang.actions.YamlFileAction;
-
 /**
  * TODO: desc
  *
@@ -10,7 +8,6 @@ import com.mabang.actions.YamlFileAction;
  */
 public class Testings {
     public static void main(String[] args) {
-        YamlFileAction yamlFileAction = new YamlFileAction();
-        System.out.println(yamlFileAction.yamlFormatView);
+
     }
 }

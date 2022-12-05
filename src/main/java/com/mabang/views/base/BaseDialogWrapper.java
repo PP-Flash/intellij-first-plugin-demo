@@ -49,7 +49,7 @@ public abstract class BaseDialogWrapper extends DialogWrapper {
      * 是否可以改变窗体大小
      */
     public boolean resizable() {
-        return true;
+        return false;
     }
 
     /**
