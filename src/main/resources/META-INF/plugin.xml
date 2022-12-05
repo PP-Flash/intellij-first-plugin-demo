@@ -2,7 +2,11 @@
 <idea-plugin>
     <id>mb</id>
     <name>MBTools</name>
-    <vendor>wangchenglong</vendor>
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="wangchenglong@mabangerp.com">wangchenglong</vendor>
+
+    <description><![CDATA[马帮内部使用，适用于Jetbrains产品的中台插件工具箱.<br>
+    如果使用中产生问题或有额外的需求，可自行修改源码打包玩耍，一切解释权归自己所有！😁😁😁]]></description>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -19,6 +23,10 @@
     <!--        <listener class="com.github.nanbiango.listeners.MyProjectManagerListener"-->
     <!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
     <!--    </applicationListeners>-->
+
+    <description>
+
+    </description>
     <actions>
         <group id="ToolsPlugins.Group" text="中台工具箱">
             <add-to-group group-id="MainMenu" anchor="last"/>
