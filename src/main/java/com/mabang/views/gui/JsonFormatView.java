@@ -59,7 +59,7 @@ public class JsonFormatView extends BaseDialogWrapper {
         //格式化内容点击事件
         formatBtn.addActionListener(e -> this.addEscapeTextHandle(etfLeft.getText().trim()));
         //Json转义
-        jsonEscapeBtn.addActionListener(e ->  this.escapeJsonHandle(etfLeft.getText().trim()));
+        jsonEscapeBtn.addActionListener(e -> this.escapeJsonHandle(etfLeft.getText().trim()));
         //清空
         clearBtn.addActionListener(e -> {
             etfLeft.setText("");
@@ -147,7 +147,7 @@ public class JsonFormatView extends BaseDialogWrapper {
                                 .forEach(json -> list.add(this.escapeJson(json.toJSONString())));
                         jsonMap.put(key, list);
                     } else {
-                        jsonMap.put(v, key);
+                        jsonMap.put(key, v);
                     }
                 });
             } catch (Exception e) {
