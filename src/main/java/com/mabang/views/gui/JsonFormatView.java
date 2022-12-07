@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.mabang.component.EditTextFieldPlus;
 import com.mabang.utils.MessageUtils;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Json数据处理视图
@@ -96,9 +98,9 @@ public class JsonFormatView extends BaseDialogWrapper {
         }
         try {
             if (JSON.isValidArray(jsonText)) {
-                jsonText = JSON.toJSONString(JSON.parseArray(jsonText).toJSONString());
+                jsonText = JSON.toJSONString(JSON.parseArray(jsonText, JSONReader.Feature.IgnoreSetNullValue).toJSONString());
             } else {
-                jsonText = JSON.toJSONString(JSON.parseObject(jsonText).toJSONString());
+                jsonText = JSON.toJSONString(JSON.parseObject(jsonText, JSONReader.Feature.IgnoreSetNullValue).toJSONString());
             }
             etfRight.setText(jsonText);
         } catch (Exception e) {
@@ -119,10 +121,16 @@ public class JsonFormatView extends BaseDialogWrapper {
         try {
             var rootList = new ArrayList<Map<String, Object>>();
             if (JSON.isValidArray(jsonText)) {
-                JSON.parseArray(jsonText, JSONObject.class).forEach(jsonObj -> rootList.add(this.escapeJson(((JSONObject) jsonObj).toJSONString())));
-                etfRight.setText(JSON.toJSONString(rootList, JSONWriter.Feature.PrettyFormat));
+                JSON.parseArray(jsonText, JSONObject.class, JSONReader.Feature.IgnoreSetNullValue)
+                        .forEach(jsonObj -> rootList.add(this.escapeJson(jsonObj.toJSONString())));
+                etfRight.setText(JSON.toJSONString(rootList, JSONWriter.Feature.PrettyFormat,
+                        JSONWriter.Feature.WriteNulls,
+                        JSONWriter.Feature.WriteMapNullValue));
             } else {
-                etfRight.setText(JSON.toJSONString(this.escapeJson(jsonText), JSONWriter.Feature.PrettyFormat));
+                etfRight.setText(JSON.toJSONString(this.escapeJson(jsonText),
+                        JSONWriter.Feature.PrettyFormat,
+                        JSONWriter.Feature.WriteNulls,
+                        JSONWriter.Feature.WriteMapNullValue));
             }
         } catch (Exception e) {
             etfRight.setText("异常:" + e.getMessage());
@@ -136,18 +144,22 @@ public class JsonFormatView extends BaseDialogWrapper {
         var jsonMap = new HashMap<String, Object>();
         if (JSON.isValidObject(jsonText)) {
             try {
-                JSON.parseObject(jsonText).forEach((key, value) -> {
-                    var v = value.toString();
-                    if (JSON.isValidObject(v)) {
-                        jsonMap.put(key, this.escapeJson(v));
-                    } else if (JSON.isValidArray(v)) {
-                        var list = new ArrayList<Map<String, Object>>();
-                        JSONArray.parseArray(v)
-                                .toList(JSONObject.class)
-                                .forEach(json -> list.add(this.escapeJson(json.toJSONString())));
-                        jsonMap.put(key, list);
+                JSON.parseObject(jsonText, JSONReader.Feature.IgnoreSetNullValue).forEach((key, value) -> {
+                    if (Objects.isNull(value)) {
+                        jsonMap.put(key, null);
                     } else {
-                        jsonMap.put(key, v);
+                        var v = value.toString();
+                        if (JSON.isValidObject(v)) {
+                            jsonMap.put(key, this.escapeJson(v));
+                        } else if (JSON.isValidArray(v)) {
+                            var list = new ArrayList<Map<String, Object>>();
+                            JSONArray.parseArray(v, JSONReader.Feature.IgnoreSetNullValue)
+                                    .toList(JSONObject.class)
+                                    .forEach(json -> list.add(this.escapeJson(json.toJSONString())));
+                            jsonMap.put(key, list);
+                        } else {
+                            jsonMap.put(key, v);
+                        }
                     }
                 });
             } catch (Exception e) {
