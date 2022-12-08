@@ -3,7 +3,6 @@ package com.mabang.views.gui;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
-import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.mabang.component.EditTextFieldPlus;
@@ -15,7 +14,6 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -119,19 +117,10 @@ public class JsonFormatView extends BaseDialogWrapper {
         }
         etfRight.setText("Json内容格式化中...");
         try {
-            var rootList = new ArrayList<Map<String, Object>>();
-            if (JSON.isValidArray(jsonText)) {
-                JSON.parseArray(jsonText, JSONObject.class, JSONReader.Feature.IgnoreSetNullValue)
-                        .forEach(jsonObj -> rootList.add(this.escapeJson(jsonObj.toJSONString())));
-                etfRight.setText(JSON.toJSONString(rootList, JSONWriter.Feature.PrettyFormat,
-                        JSONWriter.Feature.WriteNulls,
-                        JSONWriter.Feature.WriteMapNullValue));
-            } else {
-                etfRight.setText(JSON.toJSONString(this.escapeJson(jsonText),
-                        JSONWriter.Feature.PrettyFormat,
-                        JSONWriter.Feature.WriteNulls,
-                        JSONWriter.Feature.WriteMapNullValue));
-            }
+            etfRight.setText(JSON.toJSONString(this.escapeJson(jsonText),
+                    JSONWriter.Feature.PrettyFormat,
+                    JSONWriter.Feature.WriteNulls,
+                    JSONWriter.Feature.WriteMapNullValue));
         } catch (Exception e) {
             etfRight.setText("异常:" + e.getMessage());
         }
@@ -140,23 +129,20 @@ public class JsonFormatView extends BaseDialogWrapper {
     /**
      * 转义Json对象
      */
-    private Map<String, Object> escapeJson(String jsonText) {
-        var jsonMap = new HashMap<String, Object>();
+    private Object escapeJson(String jsonText) {
+        if (StrUtil.isEmpty(jsonText)) {
+            return jsonText;
+        }
         if (JSON.isValidObject(jsonText)) {
+            var jsonMap = new HashMap<String, Object>();
             try {
                 JSON.parseObject(jsonText, JSONReader.Feature.IgnoreSetNullValue).forEach((key, value) -> {
-                    if (Objects.isNull(value)) {
+                    if (Objects.isNull(value) || StrUtil.isEmpty(value.toString())) {
                         jsonMap.put(key, null);
                     } else {
                         var v = value.toString();
-                        if (JSON.isValidObject(v)) {
+                        if (JSON.isValidObject(v) || JSON.isValidArray(v)) {
                             jsonMap.put(key, this.escapeJson(v));
-                        } else if (JSON.isValidArray(v)) {
-                            var list = new ArrayList<Map<String, Object>>();
-                            JSONArray.parseArray(v, JSONReader.Feature.IgnoreSetNullValue)
-                                    .toList(JSONObject.class)
-                                    .forEach(json -> list.add(this.escapeJson(json.toJSONString())));
-                            jsonMap.put(key, list);
                         } else {
                             jsonMap.put(key, v);
                         }
@@ -165,7 +151,28 @@ public class JsonFormatView extends BaseDialogWrapper {
             } catch (Exception e) {
                 return Collections.singletonMap("Json处理失败-" + e.getMessage(), jsonText);
             }
+            return jsonMap;
+        } else if (JSON.isValidArray(jsonText)) {
+            var list = new ArrayList<>();
+            try {
+                JSONArray jsonArray = JSON.parseArray(jsonText, JSONReader.Feature.IgnoreSetNullValue);
+                for (Object json : jsonArray) {
+                    if (Objects.isNull(json)) {
+                        list.add(null);
+                        continue;
+                    }
+                    String v = json.toString();
+                    if ((JSON.isValidObject(v) || JSON.isValidArray(v))) {
+                        list.add(this.escapeJson(json.toString()));
+                    } else {
+                        list.add(json);
+                    }
+                }
+            } catch (Exception e) {
+                return Collections.singletonList("Json处理失败-" + e.getMessage() + " - " + jsonText);
+            }
+            return list;
         }
-        return jsonMap;
+        return jsonText;
     }
 }
