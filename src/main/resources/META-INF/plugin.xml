@@ -42,6 +42,9 @@
             <action id="MabangAesDecrypt.Menu" class="com.mabang.actions.MaBangAesAction"
                     text="马帮AES解密">
             </action>
+            <action id="TextHandle.Menu" class="com.mabang.actions.TextFormatAction"
+                    text="文本数据处理">
+            </action>
         </group>
     </actions>
 </idea-plugin>

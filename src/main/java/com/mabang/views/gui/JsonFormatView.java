@@ -11,9 +11,9 @@ import com.mabang.views.base.BaseDialogWrapper;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Objects;
 
 /**
@@ -134,7 +134,7 @@ public class JsonFormatView extends BaseDialogWrapper {
             return jsonText;
         }
         if (JSON.isValidObject(jsonText)) {
-            var jsonMap = new HashMap<String, Object>();
+            var jsonMap = new LinkedHashMap<String, Object>();
             try {
                 JSON.parseObject(jsonText, JSONReader.Feature.IgnoreSetNullValue).forEach((key, value) -> {
                     if (Objects.isNull(value) || StrUtil.isEmpty(value.toString())) {
@@ -153,7 +153,7 @@ public class JsonFormatView extends BaseDialogWrapper {
             }
             return jsonMap;
         } else if (JSON.isValidArray(jsonText)) {
-            var list = new ArrayList<>();
+            var list = new LinkedList<>();
             try {
                 JSONArray jsonArray = JSON.parseArray(jsonText, JSONReader.Feature.IgnoreSetNullValue);
                 for (Object json : jsonArray) {

@@ -33,6 +33,7 @@ public class EditTextFieldPlus extends EditorTextField {
         ce.setVerticalScrollbarVisible(true);
         ce.setPlaceholder(placeholder);
         ce.setOneLineMode(oneLine);
+        ce.setColumnMode(false);
         return ce;
     }
 }
